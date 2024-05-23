@@ -1,6 +1,6 @@
 package com.example.demo.comments.api;
 
-public class CommentUserVideoTitleDto extends CommentDto {
+public class CommentUserApartmentTitleDto extends CommentDto {
     private String title;
     private String user;
 

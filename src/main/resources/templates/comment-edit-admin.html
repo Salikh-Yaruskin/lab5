@@ -10,7 +10,7 @@
         <form action="#" th:action="@{/admin/comment/edit/{id}(id=${comment.id})}" th:object="${comment}" method="post">
             <input type="text" th:value="*{id}" id="id" class="form-control" readonly hidden>
             <input type="number" th:field="*{userId}" id="userId" class="form-control" readonly hidden>
-            <input type="number" th:field="*{videoId}" id="videoId" class="form-control" readonly hidden>
+            <input type="number" th:field="*{apartmentId}" id="apartmentId" class="form-control" readonly hidden>
             <div class="mb-3">
                 <label for="name" class="form-label">Текст комментария</label>
                 <input type="text" th:field="*{text}" id="text" class="form-control">
@@ -19,7 +19,7 @@
 
             <div class="mb-3 d-flex flex-row">
                 <button class="btn btn-primary me-2 button-fixed-width" type="submit">Сохранить</button>
-                <a class="btn btn-secondary button-fixed-width" href="/video">Отмена</a>
+                <a class="btn btn-secondary button-fixed-width" href="/">Отмена</a>
             </div>
         </form>
     </main>

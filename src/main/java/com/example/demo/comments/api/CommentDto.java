@@ -2,12 +2,11 @@ package com.example.demo.comments.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.Date;
-
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Min;
 
 public class CommentDto {
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
     @NotNull
     @Min(1)
@@ -16,17 +15,22 @@ public class CommentDto {
     @Min(1)
     private Long apartmentId;
     @NotNull
-    private String description;
-    @NotNull
-    private Date date;
+    private String text;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public Long getUserId() {
@@ -43,21 +47,5 @@ public class CommentDto {
 
     public void setApartmentId(Long apartmentId) {
         this.apartmentId = apartmentId;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 }

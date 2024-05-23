@@ -62,7 +62,11 @@
                             </div>
                         </div>
                         <form
-                            th:action="@{/apartment/comment/edit/add/{apartmentId}(apartmentId=${apartment.id}, page=${page})}"
+                            th:action="@{/apartments/comment/{apartmentId}(page=${page}, apartmentId=${apartment.id})}"
+                            method="get">
+                            <button type="submit" class="btn btn-dark">💬</button>
+                        </form>
+                        <form th:action="@{/comment/edit/add/{apartmentId}(apartmentId=${apartment.id}, page=${page})}"
                             method="get">
                             <button type="submit" class="btn btn-dark">+💬</button>
                         </form>
