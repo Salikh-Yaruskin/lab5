@@ -12,6 +12,7 @@ import com.example.demo.types.model.TypeEntity;
 import com.example.demo.types.service.TypeService;
 import com.example.demo.apartments.model.ApartmentEntity;
 import com.example.demo.apartments.service.ApartmentService;
+import com.example.demo.comments.service.CommentService;
 import com.example.demo.geolocations.model.GeolocationEntity;
 import com.example.demo.geolocations.service.GeolocationService;
 import com.example.demo.users.model.UserEntity;
@@ -27,13 +28,15 @@ public class DemoApplication implements CommandLineRunner {
     private final ApartmentService apartmentService;
     private final GeolocationService geolocationService;
     private final UserService userService;
+    private final CommentService commentService;
 
     public DemoApplication(TypeService typeService, ApartmentService apartmentService,
-            GeolocationService geolocationService, UserService userService) {
+            GeolocationService geolocationService, UserService userService, CommentService commentService) {
         this.typeService = typeService;
         this.apartmentService = apartmentService;
         this.geolocationService = geolocationService;
         this.userService = userService;
+        this.commentService = commentService;
     }
 
     public static void main(String[] args) {
@@ -59,6 +62,10 @@ public class DemoApplication implements CommandLineRunner {
             apartmentService.create(new ApartmentEntity(type2, PropertyStatus.PURCHASE, true, 122423.00,
                     "dfdsfds sdf", "опр", geolocation2, true, 3));
             apartmentService.create(new ApartmentEntity(type3, PropertyStatus.SALE, true, 122423.00,
+                    "dfdsfds sdf", "опр", geolocation3, true, 3));
+            apartmentService.create(new ApartmentEntity(type2, PropertyStatus.SALE, true, 122423.00,
+                    "dfdsfds sdf", "опр", geolocation3, true, 3));
+            apartmentService.create(new ApartmentEntity(type1, PropertyStatus.SALE, true, 122423.00,
                     "dfdsfds sdf", "опр", geolocation3, true, 3));
 
             log.info("Create default users");

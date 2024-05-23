@@ -56,7 +56,7 @@ body {
 }
 
 .my-navbar {
-    background-color: #87B650 !important;
+    background-color: #161b35 !important;
 }
 
 .my-navbar .link a:hover {
@@ -69,17 +69,48 @@ body {
 }
 
 .my-footer {
-    background-color: #FFA367;
+    background-color: #000000;
     height: 32px;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgb(255, 255, 255);
+}
+
+.card {
+    border-radius: 20px !important;
+}
+
+.card-img-top {
+    border-radius: 20px !important;
 }
 
 .cart-image {
     width: 3.1rem;
     padding: 0.25rem;
-    border-radius: 0.5rem;
+    border-radius: 0.7rem;
 }
 
 .cart-item {
     height: auto;
+}
+
+.inline-items {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.popularity-icon {
+    top: 10px;
+    background-color: #fff1cb;
+    font-size: 1.8em;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+}
+
+.card {
+    max-width: 350px;
+    justify-content: end;
 }
