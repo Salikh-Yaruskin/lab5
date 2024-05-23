@@ -7,7 +7,7 @@
         <nav th:if="${totalPages > 1}" th:with="
                                     maxPage=2,
                                     currentPage=${currentPage + 1}">
-            <ul class="pagination justify-content-center"
+            <ul class="pagination justify-content-center" style="margin-top: 30px;"
                 th:with="
                                             seqFrom=${currentPage - maxPage < 1 ? 1 : currentPage - maxPage},
                                             seqTo=${currentPage + maxPage > totalPages ? totalPages : currentPage + maxPage}">

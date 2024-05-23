@@ -55,21 +55,23 @@
                                     <p><strong>Душевая:</strong> <span
                                             th:text="${apartment.shower} ? '✅' : '🚫'"></span></p>
                                     <p><strong>🅿️</strong> <span th:text="${apartment.park}"></span></p>
-                                    <div th:if="${apartment.popular} == true" class="popularity-icon">
+                                    <div th:if="${apartment.popular} == true" class="popularity-icon"
+                                        style="margin-bottom: 5px; margin-top: -15px;">
                                         <span th:text="'🔥'"></span>
                                     </div>
                                 </div>
+                                <div class="btn-group" role="group" aria-label="Comment actions">
+                                    <a th:href="@{/apartments/comment/{apartmentId}(page=${page}, apartmentId=${apartment.id})}"
+                                        class="btn btn-dark"
+                                        style="margin-right: 5px; border-radius: 15px; font-size: 0.8em;">
+                                        <strong>Показать комментарии</strong></a>
+                                    <a th:href="@{/comment/edit/add/{apartmentId}(apartmentId=${apartment.id}, page=${page})}"
+                                        class="btn btn-primary"
+                                        style="margin-left: 5px; border-radius: 15px;font-size: 0.8em;">
+                                        <strong>Добавить комментарий</strong></a>
+                                </div>
                             </div>
                         </div>
-                        <form
-                            th:action="@{/apartments/comment/{apartmentId}(page=${page}, apartmentId=${apartment.id})}"
-                            method="get">
-                            <button type="submit" class="btn btn-dark">💬</button>
-                        </form>
-                        <form th:action="@{/comment/edit/add/{apartmentId}(apartmentId=${apartment.id}, page=${page})}"
-                            method="get">
-                            <button type="submit" class="btn btn-dark">+💬</button>
-                        </form>
                     </div>
                 </div>
             </th:block>

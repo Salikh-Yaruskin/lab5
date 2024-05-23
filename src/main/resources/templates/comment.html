@@ -3,6 +3,48 @@
 
 <head>
     <title>Список комментарие</title>
+    <style>
+        body {
+            background-color: #080808;
+        }
+
+        .comment-text {
+            font-size: 1.2em;
+            font-weight: bold;
+            quotes: "«" "»";
+        }
+
+        .comment-text::before {
+            content: open-quote;
+            margin-right: -0.3em;
+        }
+
+        .comment-text::after {
+            content: close-quote;
+            margin-left: -0.3em
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: rgb(255, 255, 255);
+            overflow-wrap: break-word;
+            margin-bottom: 5px;
+        }
+
+        .comment-user {
+            display: flex;
+            align-items: center;
+        }
+
+        .comment-user img {
+            width: 25px;
+            height: 25px;
+            border-radius: 10%;
+            margin-right: 5px;
+        }
+    </style>
 </head>
 
 <body>
@@ -10,26 +52,32 @@
         <th:block th:switch="${items.size()}">
             <h2 th:case="0">Данные отсутствуют</h2>
             <th:block th:case="*">
-                <h2>Видео</h2>
+                <h2 style="color: white; margin-left: 20px; font-size: 1.8em;">Комментарии</h2>
                 <div style="display: flex; ">
                     <div th:each="comment : ${items}"
-                        style="background-color: #FFA367; border: 1px solid black; max-width: 400px; margin-bottom: 10px; padding: 10px; margin: 10px 10px 10px 10px;">
-                        <div style="color: black; overflow-wrap: break-word; margin-bottom: 5px;">
-                            Пользователь
-                            <span th:text="${comment.user}"></span>
+                        style="background-color: #171717; border: 1px solid rgb(0, 0, 0); max-width: 500px; margin-bottom: 15px; padding: 15px; margin: 15px 15px 15px 15px; border-radius: 10px;">
+                        <div class="comment-header">
+                            <div class="comment-user">
+                                <img src="https://img.freepik.com/free-photo/androgynous-avatar-of-non-binary-queer-person_23-2151100205.jpg?w=826&t=st=1716492738~exp=1716493338~hmac=9d9dbda7f72432a2f20d31bacbf4043c1da4e1f5210a48abf3aac1ce29bae3a7"
+                                    alt="User Avatar">
+                                <span th:text="${comment.user}"></span>
+                            </div>
+                            <div>
+                                🏢 <span th:text="${comment.title}"></span>
+                            </div>
                         </div>
-                        <div style="color: black; overflow-wrap: break-word;">
-                            Комментарий
+                        <div class="comment-text"
+                            style="color: rgb(255, 255, 255); overflow-wrap: break-word; margin-bottom: 10px;">
                             <span th:text="${comment.text}"></span>
                         </div>
-                        <div sec:authorize="hasRole('ADMIN')" style="display: flex;">
+                        <div sec:authorize="hasRole('ADMIN')" style="display: flex; margin-top: 30px;">
                             <form th:action="@{/admin/comment/edit/{id}(id=${comment.id}, page=${page})}" method="get"
-                                style="display: inline-block; margin-right: 5px;">
+                                style="display: inline-block; margin-right: 15px;">
                                 <button type="submit" class="btn btn-success">Редактировать</button>
                             </form>
                             <form th:action="@{/admin/comment/delete/{id}(id=${comment.id}, page=${page})}"
                                 method="post" style="display: inline-block;">
-                                <button type="submit" class="btn btn-success"
+                                <button type="submit" class="btn btn-danger"
                                     onclick="return confirm('Вы уверены?')">Удалить</button>
                             </form>
                         </div>
