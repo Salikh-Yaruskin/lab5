@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{default}">
+
+<head>
+    <title>Видео</title>
+</head>
+
+<body>
+    <main layout:fragment="content">
+        <th:block th:switch="${apartments.size()}">
+            <h2 th:case="0">Данные отсутствуют</h2>
+            <th:block th:case="*">
+                <h2>Апартаменты</h2>
+                <div class="mb-3">
+                    <a href="/admin/apartment/edit/" class="btn btn-primary btn-my">Добавить новые апартаменты</a>
+                </div>
+                <div style="display: flex; flex-wrap: wrap;">
+                    <form method="get" class="row mt-2">
+                        <div class="col-sm-10 mb-3">
+                            <select th:name="typeId" id="typeId" class="form-select">
+                                <option selected value="">Фильтр по количеству комнат</option>
+                                <option th:each="type : ${types}" th:value="${type.id}"
+                                    th:selected="${type.id==typeId}">
+                                    [[${type.name}]]
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-10 mb-3">
+                            <select th:name="geolocationId" id="geolocationId" class="form-select">
+                                <option selected value="">Фильтр по геолокации</option>
+                                <option th:each="geolocation : ${geolocations}" th:value="${geolocation.id}"
+                                    th:selected="${geolocation.id==geolocationId}">
+                                    [[${geolocation.name}]]
+                                </option>
+                            </select>
+                        </div>
+                        <input type="hidden" th:name="page" th:value="${page}">
+                        <div class="col-sm-4 mb-3">
+                            <button type="submit" class="btn btn-primary col-sm-7">Показать</button>
+                        </div>
+                    </form>
+                    <table class="table mt-2">
+                        <caption></caption>
+                        <thead>
+                            <tr>
+                                <th scope="col" class="w-10">ID</th>
+                                <th scope="col" class="w-auto">Тип квартиры</th>
+                                <th scope="col" class="w-10">Статус</th>
+                                <th scope="col" class="w-10">Популярность</th>
+                                <th scope="col" class="w-10">Цена</th>
+                                <th scope="col" class="w-10">Название</th>
+                                <th scope="col" class="w-10">Описание</th>
+                                <th scope="col" class="w-10">Геолокация</th>
+                                <th scope="col" class="w-10">Душевая</th>
+                                <th scope="col" class="w-10">Парковочные места</th>
+                                <th scope="col" class="w-10"></th>
+                                <th scope="col" class="w-10"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="apartment : ${apartments}">
+                                <th scope="row" th:text="${apartment.id}"></th>
+                                <td th:text="${apartment.typeName}"></td>
+                                <td th:text="${apartment.propertyStatus}"></td>
+                                <td th:text="${apartment.popular} ? '🔥' : '👎🏻'"></td>
+                                <td th:text="${apartment.price}"></td>
+                                <td th:text="${apartment.name}"></td>
+                                <td th:text="${apartment.description}"></td>
+                                <td th:text="${apartment.geolocationName}"></td>
+                                <td th:text="${apartment.shower} ? '✅' : '🚫'"></td>
+                                <td th:text="${apartment.park}"></td>
+                                <td>
+                                    <div:block sec:authorize="hasRole('ADMIN')">
+                                        <form th:action="@{/admin/apartment/edit/{id}(id=${apartment.id})}"
+                                            style="display: flex; justify-content: center" method="get">
+                                            <button type="submit" class="btn btn-dark">Редактировать</button>
+                                        </form>
+                                    </div:block>
+                                </td>
+                                <td>
+                                    <div:block sec:authorize="hasRole('ADMIN')">
+                                        <form th:action="@{/admin/apartment/delete/{id}(id=${apartment.id})}"
+                                            style="display: flex; justify-content: center" method="post">
+                                            <button type="submit" class="btn btn-dark"
+                                                onclick="return confirm('Вы уверены?')">Удалить</button>
+                                        </form>
+                                    </div:block>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </th:block>
+        </th:block>
+        <th:block th:replace="~{ pagination :: pagination (
+                                url=@{${url}},
+                                totalPages=${totalPages},
+                                currentPage=${currentPage}) }" />
+        </th:block>
+    </main>
+</body>
+
+</html>

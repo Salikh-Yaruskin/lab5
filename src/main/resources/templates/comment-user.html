@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{default}">
+
+<head>
+    <title>Список комментарие</title>
+</head>
+
+<body>
+    <main layout:fragment="content">
+        <th:block th:switch="${items.size()}">
+            <h2 th:case="0">Данные отсутствуют</h2>
+            <th:block th:case="*">
+                <h2>Мои комментарии</h2>
+                <div style="display: flex; ">
+                    <div th:each="comment : ${items}"
+                        style="background-color: #FFA367; border: 1px solid black; max-width: 400px; margin-bottom: 10px; padding: 10px; margin: 10px 10px 10px 10px;">
+                        <div style="color: black; overflow-wrap: break-word; margin-bottom: 5px;">
+                            Видео:
+                            <span th:text="${comment.title}"></span>
+                        </div>
+                        <div style="color: black; overflow-wrap: break-word;">
+                            Комментарий:
+                            <span th:text="${comment.text}"></span>
+                        </div>
+                        <div style="display: flex;">
+                            <form th:action="@{/video/comment/edit/{id}(id=${comment.id}, page=${page})}" method="get">
+                                <button type="submit" class="btn btn-success"
+                                    style="padding-right: 10px;">Редактировать</button>
+                            </form>
+                            <form th:action="@{/video/comment/delete/{id}(id=${comment.id}, page=${page})}"
+                                method="post">
+                                <button type="submit" class="btn btn-success"
+                                    onclick="return confirm('Вы уверены?')">Удалить</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+    </main>
+</body>
+
+</html>

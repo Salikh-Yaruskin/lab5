@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{default}">
+
+<head>
+    <title>Типы заказов</title>
+</head>
+
+<body>
+    <main layout:fragment="content">
+        <th:block th:switch="${items.size()}">
+            <h2 th:case="0">Данные отсутствуют</h2>
+            <th:block th:case="*">
+                <h2>Геолокация</h2>
+                <div>
+                    <a th:href="@{/admin/geolocation/edit/}" class="btn btn-primary">Добавить геолокацию</a>
+                </div>
+                <table class="table">
+                    <caption></caption>
+                    <thead>
+                        <tr>
+                            <th scope="col" class="w-10">ID</th>
+                            <th scope="col" class="w-auto">Геолокация</th>
+                            <th scope="col" class="w-10"></th>
+                            <th scope="col" class="w-10"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="geolocation : ${items}">
+                            <th scope="row" th:text="${geolocation.id}"></th>
+                            <td th:text="${geolocation.name}"></td>
+                            <td>
+                                <form th:action="@{/admin/geolocation/edit/{id}(id=${geolocation.id})}" method="get">
+                                    <button type="submit" class="btn btn-link button-link">Редактировать</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form th:action="@{/admin/geolocation/delete/{id}(id=${geolocation.id})}" method="post">
+                                    <button type="submit" class="btn btn-link button-link"
+                                        onclick="return confirm('Вы уверены?')">Удалить</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </th:block>
+        </th:block>
+    </main>
+</body>
+
+</html>

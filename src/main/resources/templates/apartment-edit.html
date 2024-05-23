@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{default}">
+
+<head>
+    <title>Редакторовать апартаменты</title>
+</head>
+
+<body>
+    <main layout:fragment="content">
+        <form action="#" th:action="@{/admin/apartment/edit/{id}(id=${apartment.id})}" th:object="${apartment}"
+            method="post">
+            <div class="mb-3">
+                <label for="id" class="form-label">ID</label>
+                <input type="text" th:value="*{id}" id="id" class="form-control" readonly disabled>
+            </div>
+            <div class="mb-3">
+                <label for="typeId" class="form-label">Тип квартиры</label>
+                <select th:field="*{typeId}" id="typeId" class="form-select">
+                    <option th:each="type : ${types}" th:value="${type.id}" th:text="${type.name}"></option>
+                </select>
+                <div th:if="${#fields.hasErrors('typeId')}" th:errors="*{typeId}" class="invalid-feedback"></div>
+            </div>
+            <div class="mb-3">
+                <label for="propertyStatus" class="form-label">Статус недвижимости</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" th:field="*{propertyStatus}" id="statusSale"
+                        value="SALE">
+                    <label class="form-check-label" for="statusSale">Продажа</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" th:field="*{propertyStatus}" id="statusPurchase"
+                        value="PURCHASE">
+                    <label class="form-check-label" for="statusPurchase">Покупка</label>
+                </div>
+                <div th:if="${#fields.hasErrors('propertyStatus')}" th:errors="*{propertyStatus}"
+                    class="invalid-feedback"></div>
+            </div>
+            <div class="mb-3">
+                <label for="popular" class="form-label">Популярность</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" th:field="*{popular}" id="popularTrue" value="true">
+                    <label class="form-check-label" for="popularTrue">Да</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" th:field="*{popular}" id="popularFalse" value="false">
+                    <label class="form-check-label" for="popularFalse">Нет</label>
+                </div>
+                <div th:if="${#fields.hasErrors('popular')}" th:errors="*{popular}" class="invalid-feedback"></div>
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Цена</label>
+                <input type="number" th:field="*{price}" id="price" class="form-control" value="0" step="1000">
+                <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="invalid-feedback"></div>
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Название апартаментов</label>
+                <input type="text" th:field="*{name}" id="name" class="form-control">
+                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="invalid-feedback"></div>
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Описание апартаментов</label>
+                <input type="text" th:field="*{description}" id="description" class="form-control">
+                <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="invalid-feedback">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="geolocationId" class="form-label">Геолокация</label>
+                <select th:field="*{geolocationId}" id="geolocationId" class="form-select">
+                    <option th:each="geolocation : ${geolocations}" th:value="${geolocation.id}"
+                        th:text="${geolocation.name}">
+                    </option>
+                </select>
+                <div th:if="${#fields.hasErrors('geolocationId')}" th:errors="*{geolocationId}"
+                    class="invalid-feedback"></div>
+            </div>
+            <div class="mb-3">
+                <label for="shower" class="form-label">Душевая</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" th:field="*{shower}" id="showerTrue" value="true">
+                    <label class="form-check-label" for="showerTrue">Да</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" th:field="*{shower}" id="showerFalse" value="false">
+                    <label class="form-check-label" for="showerFalse">Нет</label>
+                </div>
+                <div th:if="${#fields.hasErrors('shower')}" th:errors="*{shower}" class="invalid-feedback"></div>
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Количество парковочных мест</label>
+                <input type="number" th:field="*{park}" id="park" class="form-control" value="1" step="1">
+                <div th:if="${#fields.hasErrors('park')}" th:errors="*{park}" class="invalid-feedback">
+                </div>
+            </div>
+
+            <div class="mb-3 d-flex flex-row">
+                <button class="btn btn-primary me-2 button-fixed-width" type="submit">Сохранить</button>
+                <a class="btn btn-secondary button-fixed-width" href="/admin/apartment">Отмена</a>
+            </div>
+        </form>
+    </main>
+</body>
+
+</html>

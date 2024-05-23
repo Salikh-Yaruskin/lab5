@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{default}">
+
+<head>
+    <title>Список комментарие</title>
+</head>
+
+<body>
+    <main layout:fragment="content">
+        <th:block th:switch="${items.size()}">
+            <h2 th:case="0">Данные отсутствуют</h2>
+            <th:block th:case="*">
+                <h2>Видео</h2>
+                <div style="display: flex; ">
+                    <div th:each="comment : ${items}"
+                        style="background-color: #FFA367; border: 1px solid black; max-width: 400px; margin-bottom: 10px; padding: 10px; margin: 10px 10px 10px 10px;">
+                        <div style="color: black; overflow-wrap: break-word; margin-bottom: 5px;">
+                            Пользователь
+                            <span th:text="${comment.user}"></span>
+                        </div>
+                        <div style="color: black; overflow-wrap: break-word;">
+                            Комментарий
+                            <span th:text="${comment.text}"></span>
+                        </div>
+                        <div sec:authorize="hasRole('ADMIN')" style="display: flex;">
+                            <form th:action="@{/admin/comment/edit/{id}(id=${comment.id}, page=${page})}" method="get"
+                                style="display: inline-block; margin-right: 5px;">
+                                <button type="submit" class="btn btn-success">Редактировать</button>
+                            </form>
+                            <form th:action="@{/admin/comment/delete/{id}(id=${comment.id}, page=${page})}"
+                                method="post" style="display: inline-block;">
+                                <button type="submit" class="btn btn-success"
+                                    onclick="return confirm('Вы уверены?')">Удалить</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+            <th:block th:replace="~{ pagination :: pagination (
+                                            url=${'admin/comment'},
+                                            totalPages=${totalPages},
+                                            currentPage=${currentPage}) }" />
+        </th:block>
+    </main>
+</body>
+
+</html>

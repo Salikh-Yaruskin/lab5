@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{default}">
+
+<head>
+    <title>Мои видео</title>
+</head>
+
+<body>
+    <main layout:fragment="content">
+        <th:block th:switch="${items.size()}">
+            <h2 th:case="0">Видео отсутствуют</h2>
+            <div>
+                <a th:href="@{/video/edit/(page=${page})}" class="btn btn-primary">Добавить видео</a>
+            </div>
+            <th:block th:case="*">
+                <h2>Видео</h2>
+                <div style="display: flex; flex-wrap: wrap;">
+                    <div th:each="video : ${items}" style="padding: 10px 10px 10px 10px; justify-content: center;">
+                        <div th:text="${video.title}" style="color: black;"></div>
+                        <div>
+                            <img src="https://static.tildacdn.com/tild6635-3637-4461-b131-303637663064/maxresdefault.jpg"
+                                alt="IMAGE" width="300" />
+                            <div style="display: flex; justify-content: center;">
+                                <form th:action="@{/admin/video/edit/{id}(id=${video.id})}" method="get">
+                                    <button type="submit" class="btn btn-dark">Редактировать</button>
+                                </form>
+                                <form th:action="@{/admin/video/delete/{id}(id=${video.id})}" method="post">
+                                    <button type="submit" class="btn btn-dark"
+                                        onclick="return confirm('Вы уверены?')">Удалить</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </th:block>
+            <th:block th:replace="~{ pagination :: pagination (
+                                            url=${'video'},
+                                            totalPages=${totalPages},
+                                            currentPage=${currentPage}) }" />
+        </th:block>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "DemoApplication",
+            "request": "launch",
+            "mainClass": "com.example.demo.DemoApplication",
+            "projectName": "lab45-my"
+        },
+        {
+            "type": "java",
+            "name": "Demo",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.example.demo.DemoApplication",
+            "projectName": "lec6",
+            "args": "--populate",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

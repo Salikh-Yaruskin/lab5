@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{default}">
+
+<head>
+    <title>Видео</title>
+</head>
+
+<body>
+    <main layout:fragment="content">
+        <th:block th:switch="${items.size()}">
+            <h2 th:case="0">Данные отсутствуют</h2>
+            <th:block th:case="*">
+                <h2>Видео</h2>
+                <div style="display: flex; flex-wrap: wrap;">
+                    <div th:each="video : ${items}"
+                        style="padding: 10px 10px 10px 10px; justify-content: center; flex-wrap: wrap;">
+                        <div th:text="${video.title}" style="color: black;"></div>
+                        <div>
+                            <img src="/maxresdefault.jpg" alt="IMAGE" width="300" />
+                            <div style="display: flex; justify-content: center;">
+                                <form
+                                    th:action="${video.isLiked} ? @{/video/dislike1/{id}(id=${video.id}, page=${page})} : @{/video/like/{id}(id=${video.id}, page=${page})}"
+                                    method="post">
+                                    <button type="submit" class="btn btn-dark text-big"
+                                        th:text="${video.isLiked} ? '👎🏻' : '👍🏻'"></button>
+                                </form>
+                                <form th:action="@{/list/comment/{videoId}(page=${page}, videoId=${video.id})}"
+                                    method="get">
+                                    <button type="submit" class="btn btn-dark">💬</button>
+                                </form>
+                                <form
+                                    th:action="@{/video/comment/edit/add/{videoId}(videoId=${video.id}, page=${page})}"
+                                    method="get">
+                                    <button type="submit" class="btn btn-dark">+💬</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div:block sec:authorize="hasRole('ADMIN')">
+                            <form th:action="@{/admin/video/edit/{id}(id=${video.id}, page=${page})}"
+                                style="display: flex; justify-content: center" method="get">
+                                <button type="submit" class="btn btn-dark">Редактировать</button>
+                            </form>
+                            <form th:action="@{/admin/video/delete/{id}(id=${video.id}, page=${page})}"
+                                style="display: flex; justify-content: center" method="post">
+                                <button type="submit" class="btn btn-dark"
+                                    onclick="return confirm('Вы уверены?')">Удалить</button>
+                            </form>
+                        </div:block>
+
+                    </div>
+                </div>
+            </th:block>
+            <th:block th:replace="~{ pagination :: pagination (
+                                url=${'list/video'},
+                                totalPages=${totalPages},
+                                currentPage=${currentPage}) }" />
+        </th:block>
+    </main>
+</body>
+
+</html>
