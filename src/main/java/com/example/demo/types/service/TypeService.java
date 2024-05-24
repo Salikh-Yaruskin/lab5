@@ -57,6 +57,7 @@ public class TypeService {
     @Transactional
     public TypeEntity delete(Long id) {
         final TypeEntity existsEntity = get(id);
+        repository.deleteAllByTypeId(id);
         repository.delete(existsEntity);
         return existsEntity;
     }

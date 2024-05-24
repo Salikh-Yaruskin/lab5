@@ -9,6 +9,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.jpa.repository.Modifying;
 
 import com.example.demo.apartments.model.ApartmentEntity;
 
@@ -28,6 +30,8 @@ public interface ApartmentRepository extends CrudRepository<ApartmentEntity, Lon
 
     List<ApartmentEntity> findByTypeIdAndGeolocationId(long typeId, long geolocationId);
 
-    @Query("select a from ApartmentEntity a left join a.comments c group by a.id order by count(c) desc")
-    Page<ApartmentEntity> findApartamentsOrderedByCommentCount(Pageable pageable);
+    @Modifying
+    @Transactional
+    @Query("SELECT f.apartment FROM CommentEntity f GROUP BY f.apartment.id ORDER BY COUNT(f.apartment.id) DESC")
+    List<ApartmentEntity> findAllOrderByCommentCountDesc();
 }

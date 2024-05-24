@@ -2,7 +2,7 @@
 <html lang="ru" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{default}">
 
 <head>
-    <title>Видео</title>
+    <title>Апартаменты</title>
 </head>
 
 <body>
@@ -20,7 +20,7 @@
                             <select th:name="typeId" id="typeId" class="form-select">
                                 <option selected value="">Фильтр по количеству комнат</option>
                                 <option th:each="type : ${types}" th:value="${type.id}"
-                                    th:selected="${type.id==typeId}">
+                                    th:selected="${type.id == typeId}">
                                     [[${type.name}]]
                                 </option>
                             </select>
@@ -29,7 +29,7 @@
                             <select th:name="geolocationId" id="geolocationId" class="form-select">
                                 <option selected value="">Фильтр по геолокации</option>
                                 <option th:each="geolocation : ${geolocations}" th:value="${geolocation.id}"
-                                    th:selected="${geolocation.id==geolocationId}">
+                                    th:selected="${geolocation.id == geolocationId}">
                                     [[${geolocation.name}]]
                                 </option>
                             </select>
@@ -90,13 +90,44 @@
                         </tbody>
                     </table>
                 </div>
+                <h2>Топ Апартаменты по количеству комментариев</h2>
+                <table class="table mt-2">
+                    <caption></caption>
+                    <thead>
+                        <tr>
+                            <th scope="col" class="w-10">ID</th>
+                            <th scope="col" class="w-auto">Тип квартиры</th>
+                            <th scope="col" class="w-10">Статус</th>
+                            <th scope="col" class="w-10">Популярность</th>
+                            <th scope="col" class="w-10">Цена</th>
+                            <th scope="col" class="w-10">Название</th>
+                            <th scope="col" class="w-10">Описание</th>
+                            <th scope="col" class="w-10">Геолокация</th>
+                            <th scope="col" class="w-10">Душевая</th>
+                            <th scope="col" class="w-10">Парковочные места</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="apartment : ${topApartments}">
+                            <th scope="row" th:text="${apartment.id}"></th>
+                            <td th:text="${apartment.typeName}"></td>
+                            <td th:text="${apartment.propertyStatus}"></td>
+                            <td th:text="${apartment.popular} ? '🔥' : '👎🏻'"></td>
+                            <td th:text="${apartment.price}"></td>
+                            <td th:text="${apartment.name}"></td>
+                            <td th:text="${apartment.description}"></td>
+                            <td th:text="${apartment.geolocationName}"></td>
+                            <td th:text="${apartment.shower} ? '✅' : '🚫'"></td>
+                            <td th:text="${apartment.park}"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </th:block>
         </th:block>
         <th:block th:replace="~{ pagination :: pagination (
                                 url=@{${url}},
                                 totalPages=${totalPages},
                                 currentPage=${currentPage}) }" />
-        </th:block>
     </main>
 </body>
 

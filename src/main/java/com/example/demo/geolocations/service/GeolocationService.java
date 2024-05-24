@@ -69,6 +69,7 @@ public class GeolocationService {
     @Transactional
     public GeolocationEntity delete(Long id) {
         final GeolocationEntity existsEntity = get(id);
+        repository.deleteAllByGeolocationId(id);
         repository.delete(existsEntity);
         return existsEntity;
     }

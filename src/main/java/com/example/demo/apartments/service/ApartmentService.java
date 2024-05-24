@@ -119,7 +119,7 @@ public class ApartmentService {
     }
 
     @Transactional(readOnly = true)
-    public Page<ApartmentEntity> getApartmentsOrderedByCommentCount(Pageable pageable) {
-        return repository.findApartamentsOrderedByCommentCount(pageable);
+    public List<ApartmentEntity> getAllOrderByCommentCountDesc() {
+        return repository.findAllOrderByCommentCountDesc();
     }
 }

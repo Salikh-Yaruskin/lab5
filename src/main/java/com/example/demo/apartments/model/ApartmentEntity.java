@@ -132,9 +132,18 @@ public class ApartmentEntity extends BaseEntity {
         this.park = park;
     }
 
+    public List<CommentEntity> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentEntity> comments) {
+        this.comments = comments;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(id, type, propertyStatus, popular, price, name, description, geolocation, shower, park);
+        return Objects.hash(id, type, propertyStatus, popular, price, name, description, geolocation, shower, park,
+                comments);
     }
 
     @Override
