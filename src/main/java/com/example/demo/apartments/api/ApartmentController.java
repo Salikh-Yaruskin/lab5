@@ -98,8 +98,6 @@ public class ApartmentController {
         model.addAttribute("page", page);
         model.addAttribute("typeId", typeId);
         model.addAttribute("geolocationId", geolocationId);
-        List<ApartmentEntity> topApartments = apartmentService.getAllOrderByCommentCountDesc();
-        model.addAttribute("topApartments", topApartments.stream().limit(3).map(this::toDto).toList());
         return APARTAMENT_VIEW;
     }
 

@@ -48,6 +48,10 @@
                                 th:classappend="${activeLink.startsWith('/admin/apartment') ? 'active' : ''}">
                                 Апартаменты
                             </a>
+                            <a class="nav-link" href="/admin/top-apartment"
+                                th:classappend="${activeLink.startsWith('/admin/top-apartment') ? 'active' : ''}">
+                                Топ комментируемых
+                            </a>
                             <a class="nav-link" href="/h2-console/" target="_blank">Консоль H2</a>
                         </th:block>
                     </ul>

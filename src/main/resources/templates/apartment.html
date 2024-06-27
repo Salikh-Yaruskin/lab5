@@ -90,37 +90,6 @@
                         </tbody>
                     </table>
                 </div>
-                <h2>Топ Апартаменты по количеству комментариев</h2>
-                <table class="table mt-2">
-                    <caption></caption>
-                    <thead>
-                        <tr>
-                            <th scope="col" class="w-10">ID</th>
-                            <th scope="col" class="w-auto">Тип квартиры</th>
-                            <th scope="col" class="w-10">Статус</th>
-                            <th scope="col" class="w-10">Популярность</th>
-                            <th scope="col" class="w-10">Цена</th>
-                            <th scope="col" class="w-10">Название</th>
-                            <th scope="col" class="w-10">Описание</th>
-                            <th scope="col" class="w-10">Геолокация</th>
-                            <th scope="col" class="w-10">Душевая</th>
-                            <th scope="col" class="w-10">Парковочные места</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="apartment : ${topApartments}">
-                            <th scope="row" th:text="${apartment.id}"></th>
-                            <td th:text="${apartment.typeName}"></td>
-                            <td th:text="${apartment.propertyStatus}"></td>
-                            <td th:text="${apartment.popular} ? '🔥' : '👎🏻'"></td>
-                            <td th:text="${apartment.price}"></td>
-                            <td th:text="${apartment.name}"></td>
-                            <td th:text="${apartment.description}"></td>
-                            <td th:text="${apartment.geolocationName}"></td>
-                            <td th:text="${apartment.shower} ? '✅' : '🚫'"></td>
-                            <td th:text="${apartment.park}"></td>
-                        </tr>
-                    </tbody>
                 </table>
             </th:block>
         </th:block>

@@ -26,6 +26,7 @@ public class SecurityConfiguration {
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
         httpSecurity.cors(Customizer.withDefaults());
 
+        // Авторизация
         httpSecurity.authorizeHttpRequests(requests -> requests
                 .requestMatchers("/css/**", "/webjars/**", "/*.svg")
                 .permitAll());
@@ -37,6 +38,7 @@ public class SecurityConfiguration {
                 .requestMatchers(Constants.LOGIN_URL).anonymous()
                 .anyRequest().authenticated());
 
+        // Аутентификация
         httpSecurity.formLogin(formLogin -> formLogin
                 .loginPage(Constants.LOGIN_URL));
 
@@ -48,7 +50,6 @@ public class SecurityConfiguration {
         return httpSecurity.build();
     }
 
-    @Bean
     DaoAuthenticationProvider authenticationProvider(UserDetailsService userDetailsService) {
         final DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService);
